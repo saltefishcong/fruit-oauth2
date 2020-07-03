@@ -58,9 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置短信认证方式
                 .apply(smsAuthenticationSecurityConfig)
                 .and()
+                .formLogin()
+                .loginPage("http://localhost:9007/")
+                .and()
                 //访问资源授权设置
                 .authorizeRequests()
-                .antMatchers("/login.html","/login","/authentication/form","/ImageCode","/SmsCode","/authentication/phone","/auth/*","/signup","/register","/index")
+                .antMatchers("/SmsCode","/authentication/phone")
                 .permitAll()
 //                .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest()

@@ -75,7 +75,7 @@ public class PasswordOauthAuthorizationServerConfig extends AuthorizationServerC
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
+//                .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();  //允许表单登录
     }
 

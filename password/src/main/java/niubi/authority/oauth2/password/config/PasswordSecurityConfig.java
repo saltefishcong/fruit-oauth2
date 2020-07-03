@@ -35,10 +35,13 @@ public class PasswordSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().formLogin();
-//        http.cors().disable();
+        http
+                .formLogin()
+                //设置前端登录页面
+                .loginPage("http://localhost:9007/")
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated();
         http.csrf().disable();//关闭cors攻击验证
 //        http.sessionManagement().maximumSessions(1); //设置用户只能登录一次，下一次登录会把上一次登录去掉
     }

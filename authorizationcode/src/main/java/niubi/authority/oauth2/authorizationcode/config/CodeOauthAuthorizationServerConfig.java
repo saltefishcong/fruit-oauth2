@@ -70,6 +70,7 @@ public class CodeOauthAuthorizationServerConfig extends AuthorizationServerConfi
             //jwt
             endpoints.tokenEnhancer(tokenEnhancerChain)
                     .accessTokenConverter(accessTokenConverter());
+            endpoints.pathMapping("/oauth/confirm_access","/code/confirm_access");
         }
     }
 
