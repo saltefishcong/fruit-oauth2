@@ -3,9 +3,7 @@ package niubi.authority.social.github.factory;
 import niubi.authority.social.github.api.GithubApi;
 import niubi.authority.social.github.eity.Github;
 import niubi.authority.social.github.provider.GithubProvider;
-import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
-import org.springframework.social.oauth2.OAuth2ServiceProvider;
 
 /**
  * @author congcong

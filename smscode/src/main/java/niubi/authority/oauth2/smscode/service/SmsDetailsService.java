@@ -1,7 +1,7 @@
-package niubi.authority.oauth2.sms.service;
+package niubi.authority.oauth2.smscode.service;
 
-import niubi.authority.oauth2.sms.eity.User;
-import niubi.authority.oauth2.sms.repository.UserRepository;
+import niubi.authority.oauth2.smscode.eity.User;
+import niubi.authority.oauth2.smscode.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

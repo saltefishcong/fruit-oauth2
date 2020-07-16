@@ -1,8 +1,8 @@
 package niubi.authority.oauth2.openid.config;
 
-import niubi.authority.oauth2.smscode.enhancer.JwtEnhancer;
-import niubi.authority.oauth2.smscode.granter.SmsTokenGranter;
-import niubi.authority.oauth2.smscode.service.SmsDetailsService;
+import niubi.authority.oauth2.openid.enhancer.JwtEnhancer;
+import niubi.authority.oauth2.openid.granter.OpenIdTokenGranter;
+import niubi.authority.oauth2.openid.service.OpenIdDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +35,7 @@ import java.util.List;
 
 @EnableAuthorizationServer
 @Configuration
-public class SmsAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+public class OpenIdAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Resource
     private DataSource dataSource;
@@ -44,7 +44,7 @@ public class SmsAuthorizationServerConfiguration extends AuthorizationServerConf
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private SmsDetailsService smsDetailsService;
+    private OpenIdDetailsService openIdDetailsService;
 
     @Autowired
     private ClientDetailsService clientDetailsService;
@@ -122,7 +122,7 @@ public class SmsAuthorizationServerConfiguration extends AuthorizationServerConf
         // 添加客户端模式
         tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, requestFactory));
         // 添加自定义授权模式（实际是密码模式的复制）
-        tokenGranters.add(new SmsTokenGranter(smsDetailsService,tokenServices, clientDetailsService, requestFactory));
+        tokenGranters.add(new OpenIdTokenGranter(openIdDetailsService,tokenServices, clientDetailsService, requestFactory));
         if (authenticationManager != null) {
             // 添加密码模式
             tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));

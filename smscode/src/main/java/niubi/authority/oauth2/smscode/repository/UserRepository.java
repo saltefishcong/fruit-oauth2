@@ -1,6 +1,6 @@
-package niubi.authority.oauth2.sms.repository;
+package niubi.authority.oauth2.smscode.repository;
 
-import niubi.authority.oauth2.sms.eity.User;
+import niubi.authority.oauth2.smscode.eity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

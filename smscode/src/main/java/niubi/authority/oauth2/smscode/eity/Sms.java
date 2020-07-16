@@ -1,4 +1,4 @@
-package niubi.authority.oauth2.sms.eity;
+package niubi.authority.oauth2.smscode.eity;
 
 import lombok.Data;
 

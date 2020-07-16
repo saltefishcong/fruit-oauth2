@@ -1,7 +1,10 @@
 package niubi.authority.social.github.controller;
 
+import niubi.authority.social.github.service.MyDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +25,15 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
     @Autowired
+    private  JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    @Autowired
+    private MyDetailsService myDetailsService;
+
     @GetMapping("/user")
-    @RolesAllowed({"TEST"})
     @ResponseBody
     public Authentication getUser(Authentication authentication){
         return authentication;
@@ -51,6 +59,10 @@ public class UserController {
 
     @RequestMapping(value = "/register")
     public String register(String username, HttpServletRequest request){
+        User user=(User) myDetailsService.loadUserByUsername(username);
+        if(user == null) {
+            myDetailsService.save(username,request.getParameter("password"));
+        }
         System.out.println("register ");
         providerSignInUtils.doPostSignUp(username,new ServletWebRequest(request));
         return "redirect:/user";

@@ -2,8 +2,6 @@ package niubi.authority.oauth2.openid.granter;
 
 import niubi.authority.oauth2.openid.service.OpenIdDetailsService;
 import niubi.authority.oauth2.openid.token.OpenIdAuthenticationToken;
-import niubi.authority.oauth2.smscode.service.SmsDetailsService;
-import niubi.authority.oauth2.smscode.token.SmsAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.*;
@@ -12,14 +10,14 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 
 import java.util.Map;
 
-public class SmsTokenGranter extends AbstractTokenGranter {
+public class OpenIdTokenGranter extends AbstractTokenGranter {
 
     private static final String GRANT_TYPE = "open_id";
 
     private OpenIdDetailsService openIdDetailsService;
 
 
-    public SmsTokenGranter(OpenIdDetailsService openIdDetailsService,AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+    public OpenIdTokenGranter(OpenIdDetailsService openIdDetailsService, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
         super(tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
         this.openIdDetailsService= openIdDetailsService;
     }

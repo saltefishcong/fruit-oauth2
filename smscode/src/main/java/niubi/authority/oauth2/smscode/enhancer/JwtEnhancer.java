@@ -1,4 +1,4 @@
-package niubi.authority.oauth2.sms.handler;
+package niubi.authority.oauth2.smscode.enhancer;
 
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

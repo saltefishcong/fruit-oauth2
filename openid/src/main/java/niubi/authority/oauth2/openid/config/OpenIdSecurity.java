@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SmsSecurity extends WebSecurityConfigurerAdapter {
+public class OpenIdSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void init(WebSecurity web) throws Exception {

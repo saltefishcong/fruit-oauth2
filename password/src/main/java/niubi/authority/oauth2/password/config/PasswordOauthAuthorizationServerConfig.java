@@ -91,20 +91,19 @@ public class PasswordOauthAuthorizationServerConfig extends AuthorizationServerC
         return converter;
     }
 
-    @Bean
-    @Primary
-    public DefaultTokenServices tokenServices() {    //这个不开启用不了密码模式
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-        // 这里如果设置为true则不返回refresh_token，如果需要刷新token的功能需要设置成false
-        defaultTokenServices.setSupportRefreshToken(false);
-        System.out.println(new Date().getTime());
-        defaultTokenServices.setAccessTokenValiditySeconds(60);
-        // refresh_token默认30天
-        defaultTokenServices.setRefreshTokenValiditySeconds(60 * 60 * 8);
-        defaultTokenServices.setTokenEnhancer(jwtTokenEnhancer());
-        return defaultTokenServices;
-    }
+//    @Bean
+//    @Primary
+//    public DefaultTokenServices tokenServices() {    //这个不开启用不了密码模式
+//        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+//        defaultTokenServices.setTokenStore(tokenStore());
+//        // 这里如果设置为true则不返回refresh_token，如果需要刷新token的功能需要设置成false
+//        defaultTokenServices.setSupportRefreshToken(false);
+//        defaultTokenServices.setAccessTokenValiditySeconds(60);
+//        // refresh_token默认30天
+//        defaultTokenServices.setRefreshTokenValiditySeconds(60 * 60 * 8);
+//        defaultTokenServices.setTokenEnhancer(jwtTokenEnhancer());
+//        return defaultTokenServices;
+//    }
 
     @Bean
     @ConditionalOnMissingBean(name = "jwtTokenEnhancer")

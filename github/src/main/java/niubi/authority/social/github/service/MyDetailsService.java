@@ -33,26 +33,37 @@ public class MyDetailsService implements UserDetailsService, SocialUserDetailsSe
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {   //注册的时候查询用户是否存在用到
         System.out.println("UserDetails  "+username);
         User user=userRepository.findByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("用户不存在");
+        if(user != null){
+            List<GrantedAuthority> list=new ArrayList<>();
+            list.add(new SimpleGrantedAuthority("ROLE_TEST"));
+            return new org.springframework.security.core.userdetails.User(username,passwordEncoder.encode(user.getPassword())
+                    , list);
         }
-        List<GrantedAuthority> list=new ArrayList<>();
-        list.add(new SimpleGrantedAuthority("ROLE_TEST"));
-        return new org.springframework.security.core.userdetails.User(username,passwordEncoder.encode(user.getPassword())
-                , list);
+        else{
+            return null;
+        }
     }
 
     @Override
-    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {     //第三方授权之后登录用到
         System.out.println("SocialUserDetails  "+userId +"  userId");
+        User user=userRepository.findByUsername(userId);
+        System.out.println(user);
         List<GrantedAuthority> list=new ArrayList<>();
         list.add(new SimpleGrantedAuthority("ROLE_TEST"));
         list.add(new SimpleGrantedAuthority("ADMIN"));
         list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return new SocialUser(userId,passwordEncoder.encode("123456")
                 , list);
+    }
+
+    public void save(String username ,String password){
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        userRepository.save(user);
     }
 }

@@ -1,4 +1,4 @@
-package niubi.authority.oauth2.sms.token;
+package niubi.authority.oauth2.smscode.token;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

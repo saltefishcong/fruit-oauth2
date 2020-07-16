@@ -1,4 +1,4 @@
-package niubi.authority.oauth2.smscode.token;
+package niubi.authority.oauth2.openid.token;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,24 +11,27 @@ import java.util.Collection;
  * @date 2019/3/9 16:25
  * 类描述
  */
-public class SmsAuthenticationToken extends AbstractAuthenticationToken {
+public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 
-    //手机号
-    private final Object phone;
+    private final Object providerId;
+
+    private final Object providerUserId;
 
     private static final long serialVersionUID = 1533092775910246006L;
 
     //SmsAuthenticationFilter中构建的未认证的Authentication
-    public SmsAuthenticationToken(String phone){
+    public OpenIdAuthenticationToken(String providerId,String providerUserId){
         super(null);
-        this.phone = phone;
+        this.providerId = providerId;
+        this.providerUserId =providerUserId;
         setAuthenticated(false);
     }
 
     //SmsAuthenticationProvider中构建已认证的Authentication
-    public SmsAuthenticationToken(Object phone, Collection<? extends GrantedAuthority> authorities){
+    public OpenIdAuthenticationToken(Object providerId, String providerUserId, Collection<? extends GrantedAuthority> authorities){
         super(authorities);
-        this.phone = phone;
+        this.providerId = providerId;
+        this.providerUserId =providerUserId;
         super.setAuthenticated(true);
     }
 
@@ -43,7 +46,11 @@ public class SmsAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return this.phone;
+        return null;
+    }
+
+    public Object getProviderUserId() {
+        return providerUserId;
     }
 
     @Override

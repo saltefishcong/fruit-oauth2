@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
@@ -34,9 +35,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 //自定义登录页
                 .loginPage("/login.html")
-                //.loginProcessingUrl("/authentication/form")
-                //.successForwardUrl("/index")
-                //.failureForwardUrl("/errors")   //   failureForwardUrl()与failureHandler()不能同时设置
                 .failureHandler(failureHandler)
                 .and()
                 //退出登录设置
@@ -50,7 +48,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login.html","/authentication/form","/auth/*","/signup","/register","/index")
                 .permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -67,5 +64,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter jwtAccessTokenConverter= new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey("123");
+        return  jwtAccessTokenConverter;
     }
 }
